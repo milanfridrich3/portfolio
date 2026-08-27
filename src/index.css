@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background: #05070c;
+  }
+
+  body {
+    @apply bg-void text-ink font-sans antialiased;
+    overflow-x: hidden;
+    font-feature-settings: "ss01";
+  }
+
+  ::selection {
+    background: rgba(111, 163, 224, 0.28);
+    color: #f4f2ec;
+  }
+
+  :focus-visible {
+    outline: 2px solid #6fa3e0;
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  .film-grain {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .eyebrow {
+    @apply font-mono text-[0.68rem] tracking-widemono uppercase text-ink-soft/80;
+  }
+
+  .container-edit {
+    @apply mx-auto w-full max-w-[1240px] px-6 md:px-10;
+  }
+
+  .hairline {
+    @apply border-t border-line;
+  }
+}
