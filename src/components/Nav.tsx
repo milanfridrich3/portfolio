@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { profile } from "../data/content";
 
 const links = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
+  { label: "AI & Tech", href: "#ai" },
   { label: "Projects", href: "#projects" },
+  { label: "Skills", href: "#skills" },
   { label: "Vision", href: "#vision" },
 ];
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -21,8 +24,22 @@ export default function Nav() {
   }, []);
 
   const handleClick = (href: string) => {
+    const wasOpen = open;
     setOpen(false);
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+
+    if (wasOpen) {
+      // The mobile menu's collapse animation (height: auto -> 0) changes
+      // page layout while it runs. If we call scrollIntoView at the same
+      // time, that ongoing layout shift interrupts the native smooth
+      // scroll before it can move at all. Wait for the collapse to finish
+      // (matches the AnimatePresence transition duration below) before
+      // scrolling, so the scroll runs against stable layout.
+      window.setTimeout(() => {
+        document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+      }, 300);
+    } else {
+      document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
@@ -67,8 +84,8 @@ export default function Nav() {
 
           <div className="flex items-center gap-2">
             <motion.a
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
+              whileHover={prefersReducedMotion ? undefined : { scale: 1.04 }}
+              whileTap={prefersReducedMotion ? undefined : { scale: 0.97 }}
               transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
               href="/milan-fridrich-portfolio.pdf"
               download
@@ -83,8 +100,8 @@ export default function Nav() {
             </motion.a>
 
             <motion.a
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
+              whileHover={prefersReducedMotion ? undefined : { scale: 1.04 }}
+              whileTap={prefersReducedMotion ? undefined : { scale: 0.97 }}
               transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
               href="#contact"
               onClick={(e) => {

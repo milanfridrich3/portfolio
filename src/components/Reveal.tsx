@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 
 type RevealProps = {
@@ -6,10 +6,15 @@ type RevealProps = {
   delay?: number;
   y?: number;
   className?: string;
-  as?: "div" | "span";
 };
 
 export default function Reveal({ children, delay = 0, y = 22, className = "" }: RevealProps) {
+  const prefersReducedMotion = useReducedMotion();
+
+  if (prefersReducedMotion) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y }}

@@ -1,8 +1,10 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Reveal from "./Reveal";
 import { vision } from "../data/content";
 
 export default function VisionSection() {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <section id="vision" className="relative py-24 md:py-32 hairline">
       <div className="container-edit">
@@ -22,7 +24,7 @@ export default function VisionSection() {
           {vision.items.map((item, i) => (
             <Reveal key={item} delay={0.16 + i * 0.04}>
               <motion.div
-                whileHover={{ x: 4 }}
+                whileHover={prefersReducedMotion ? undefined : { x: 4 }}
                 transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                 className="flex items-start gap-3 border-t border-line py-4"
               >

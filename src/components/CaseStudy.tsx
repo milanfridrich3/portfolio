@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import PetaliVisual from "./PetaliVisual";
 import ProjectPilotVisual from "./ProjectPilotVisual";
 import Reveal from "./Reveal";
@@ -10,6 +10,7 @@ type CaseStudyProps = {
 };
 
 export default function CaseStudy({ project, reverse = false }: CaseStudyProps) {
+  const prefersReducedMotion = useReducedMotion();
   const accentText = project.accent === "sage" ? "text-sage-glow" : "text-blue-glow";
   const accentBorder = project.accent === "sage" ? "border-sage-glow/30" : "border-blue-glow/30";
 
@@ -23,7 +24,7 @@ export default function CaseStudy({ project, reverse = false }: CaseStudyProps) 
         {/* Visual */}
         <Reveal y={30}>
           <motion.div
-            whileHover={{ y: -4 }}
+            whileHover={prefersReducedMotion ? undefined : { y: -4 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="relative aspect-[4/3] w-full overflow-hidden rounded-[28px] border border-line bg-panel"
           >

@@ -78,8 +78,8 @@ export default function Hero() {
           className="mt-10 flex flex-wrap items-center justify-center gap-3"
         >
           <motion.button
-            whileHover={{ scale: 1.035, y: -2 }}
-            whileTap={{ scale: 0.97 }}
+            whileHover={prefersReducedMotion ? undefined : { scale: 1.035, y: -2 }}
+            whileTap={prefersReducedMotion ? undefined : { scale: 0.97 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
             onClick={() => scrollTo("#projects")}
             className="rounded-full border border-line-bright bg-ink px-6 py-3 text-sm font-medium text-void"
@@ -87,8 +87,8 @@ export default function Hero() {
             See projects
           </motion.button>
           <motion.button
-            whileHover={{ scale: 1.035, y: -2, borderColor: "rgba(111,163,224,0.6)" }}
-            whileTap={{ scale: 0.97 }}
+            whileHover={prefersReducedMotion ? undefined : { scale: 1.035, y: -2, borderColor: "rgba(111,163,224,0.6)" }}
+            whileTap={prefersReducedMotion ? undefined : { scale: 0.97 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
             onClick={() => scrollTo("#contact")}
             className="rounded-full border border-line-bright px-6 py-3 text-sm text-ink"

@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 type ChipRowProps = {
   items: string[];
@@ -19,6 +19,23 @@ const chip = {
 };
 
 export default function ChipRow({ items, className = "", delay = 0 }: ChipRowProps) {
+  const prefersReducedMotion = useReducedMotion();
+
+  if (prefersReducedMotion) {
+    return (
+      <div className={`flex flex-wrap gap-2.5 ${className}`}>
+        {items.map((item) => (
+          <span
+            key={item}
+            className="rounded-full border border-line px-3.5 py-1.5 font-mono text-[0.72rem] tracking-wide text-ink-soft transition-colors hover:border-line-bright"
+          >
+            {item}
+          </span>
+        ))}
+      </div>
+    );
+  }
+
   return (
     <motion.div
       variants={container}

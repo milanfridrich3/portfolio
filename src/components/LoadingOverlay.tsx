@@ -6,10 +6,8 @@ export default function LoadingOverlay() {
   const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
-    if (prefersReducedMotion) {
-      setVisible(false);
-      return;
-    }
+    if (prefersReducedMotion) return;
+
     document.documentElement.style.overflow = "hidden";
     const timer = setTimeout(() => {
       setVisible(false);
