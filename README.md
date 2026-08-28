@@ -75,6 +75,12 @@ Open to conversations about projects, collaboration, or just talking through an 
 - ✉️ **Email** — [milan.fridrich3@gmail.com](mailto:milan.fridrich3@gmail.com)
 - 🐙 **GitHub** — [github.com/milanfridrich3](https://github.com/milanfridrich3)
 
+<br>
+
+## License
+
+All rights reserved. See the [LICENSE](LICENSE) file for details.
+
 ---
 
 <p align="center">
