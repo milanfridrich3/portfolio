@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import Aperture from "./Aperture";
+import PetaliVisual from "./PetaliVisual";
+import ProjectPilotVisual from "./ProjectPilotVisual";
 import Reveal from "./Reveal";
 import type { Project } from "../data/content";
 
@@ -27,7 +28,7 @@ export default function CaseStudy({ project, reverse = false }: CaseStudyProps) 
             className="relative aspect-[4/3] w-full overflow-hidden rounded-[28px] border border-line bg-panel"
           >
             <div className="absolute inset-0 flex items-center justify-center">
-              <Aperture size={520} accent={project.accent} animate={false} idle />
+              {project.slug === "petali" ? <PetaliVisual /> : <ProjectPilotVisual />}
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-void/70 via-transparent to-void/20" />
             <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between">
