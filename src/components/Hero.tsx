@@ -1,9 +1,10 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import Aperture from "./Aperture";
-import { profile, intro } from "../data/content";
+import { useLanguage } from "../i18n/LanguageContext";
 
 export default function Hero() {
+  const { t } = useLanguage();
   const scrollTo = (href: string) => document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
   const sectionRef = useRef<HTMLElement>(null);
   const prefersReducedMotion = useReducedMotion();
@@ -36,11 +37,11 @@ export default function Hero() {
           transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="eyebrow mb-6"
         >
-          {profile.role}
+          {t.profile.role}
         </motion.span>
 
         <h1 className="font-display italic font-light text-[clamp(3rem,10vw,7.5rem)] leading-[0.98] text-ink">
-          {profile.name.split(" ").map((word, i) => (
+          {t.profile.name.split(" ").map((word, i) => (
             <motion.span
               key={word}
               initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
@@ -59,7 +60,7 @@ export default function Hero() {
           transition={{ delay: 0.85, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           className="mt-7 max-w-md text-balance font-display italic text-[1.15rem] text-blue-glow"
         >
-          {profile.motto}
+          {t.profile.motto}
         </motion.p>
 
         <motion.p
@@ -68,7 +69,7 @@ export default function Hero() {
           transition={{ delay: 1.0, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           className="mt-5 max-w-lg text-balance text-sm leading-relaxed text-ink-soft"
         >
-          {intro.paragraph}
+          {t.intro.paragraph}
         </motion.p>
 
         <motion.div
@@ -84,7 +85,7 @@ export default function Hero() {
             onClick={() => scrollTo("#projects")}
             className="rounded-full border border-line-bright bg-ink px-6 py-3 text-sm font-medium text-void"
           >
-            See projects
+            {t.hero.seeProjects}
           </motion.button>
           <motion.button
             whileHover={prefersReducedMotion ? undefined : { scale: 1.035, y: -2, borderColor: "rgba(111,163,224,0.6)" }}
@@ -93,7 +94,7 @@ export default function Hero() {
             onClick={() => scrollTo("#contact")}
             className="rounded-full border border-line-bright px-6 py-3 text-sm text-ink"
           >
-            Say hi
+            {t.hero.sayHi}
           </motion.button>
         </motion.div>
       </div>

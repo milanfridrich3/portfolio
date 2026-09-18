@@ -1,8 +1,10 @@
 import Reveal from "./Reveal";
 import Aperture from "./Aperture";
-import { profile } from "../data/content";
+import { useLanguage } from "../i18n/LanguageContext";
 
 export default function ContactSection() {
+  const { t } = useLanguage();
+
   return (
     <section id="contact" className="relative overflow-hidden py-28 md:py-36">
       <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-70">
@@ -12,27 +14,26 @@ export default function ContactSection() {
 
       <div className="container-edit relative z-10 flex flex-col items-center text-center">
         <Reveal>
-          <span className="eyebrow">Contact</span>
+          <span className="eyebrow">{t.contact.eyebrow}</span>
         </Reveal>
         <Reveal delay={0.08}>
           <h2 className="mt-5 max-w-2xl font-display italic font-light text-[clamp(2.4rem,6vw,4.6rem)] leading-[1.02] text-ink">
-            Say hi.
+            {t.contact.heading}
           </h2>
         </Reveal>
         <Reveal delay={0.16}>
           <p className="mt-5 max-w-md text-[0.98rem] leading-relaxed text-ink-soft">
-            Open to conversations about projects, collaboration, or just talking through
-            an idea. The fastest way to reach me is email.
+            {t.contact.paragraph}
           </p>
         </Reveal>
 
         {/* Styled as a lightweight "form" — a single field that opens the mail client */}
         <Reveal delay={0.24}>
           <a
-            href={`mailto:${profile.email}`}
+            href={`mailto:${t.profile.email}`}
             className="group mt-10 flex w-full max-w-md items-center justify-between gap-3 rounded-full border border-line-bright bg-panel/60 py-2 pl-6 pr-2 backdrop-blur-sm transition-colors hover:border-blue-glow/50"
           >
-            <span className="truncate text-left text-[0.92rem] text-ink-soft">{profile.email}</span>
+            <span className="truncate text-left text-[0.92rem] text-ink-soft">{t.profile.email}</span>
             <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ink text-void transition-transform group-hover:translate-x-0.5">
               →
             </span>
@@ -41,12 +42,12 @@ export default function ContactSection() {
 
         <Reveal delay={0.3}>
           <a
-            href={profile.github}
+            href={t.profile.github}
             target="_blank"
             rel="noreferrer"
             className="mt-6 inline-flex items-center gap-2 text-sm text-ink-faint transition-colors hover:text-ink-soft"
           >
-            github.com/{profile.githubHandle}
+            github.com/{t.profile.githubHandle}
             <span aria-hidden>↗</span>
           </a>
         </Reveal>

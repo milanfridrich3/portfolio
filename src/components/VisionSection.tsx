@@ -1,27 +1,28 @@
 import { motion, useReducedMotion } from "framer-motion";
 import Reveal from "./Reveal";
-import { vision } from "../data/content";
+import { useLanguage } from "../i18n/LanguageContext";
 
 export default function VisionSection() {
   const prefersReducedMotion = useReducedMotion();
+  const { t } = useLanguage();
 
   return (
     <section id="vision" className="relative py-24 md:py-32 hairline">
       <div className="container-edit">
         <Reveal>
-          <span className="eyebrow">Vision</span>
+          <span className="eyebrow">{t.vision.eyebrow}</span>
         </Reveal>
         <Reveal delay={0.06}>
           <h2 className="mt-4 max-w-2xl font-display italic font-light text-[clamp(2.2rem,4.8vw,3.6rem)] leading-[1.05] text-ink">
-            Just getting started.
+            {t.vision.heading}
           </h2>
         </Reveal>
         <Reveal delay={0.12}>
-          <p className="mt-6 max-w-xl text-[0.98rem] leading-relaxed text-ink-soft">{vision.intro}</p>
+          <p className="mt-6 max-w-xl text-[0.98rem] leading-relaxed text-ink-soft">{t.vision.intro}</p>
         </Reveal>
 
         <div className="mt-10 grid grid-cols-1 gap-x-10 gap-y-1 md:grid-cols-2">
-          {vision.items.map((item, i) => (
+          {t.vision.items.map((item, i) => (
             <Reveal key={item} delay={0.16 + i * 0.04}>
               <motion.div
                 whileHover={prefersReducedMotion ? undefined : { x: 4 }}
@@ -36,7 +37,7 @@ export default function VisionSection() {
         </div>
 
         <Reveal delay={0.5}>
-          <p className="mt-10 font-display italic text-[1.1rem] text-ink">{vision.closing}</p>
+          <p className="mt-10 font-display italic text-[1.1rem] text-ink">{t.vision.closing}</p>
         </Reveal>
       </div>
     </section>

@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import Nav from "./components/Nav";
 import LoadingOverlay from "./components/LoadingOverlay";
 import Hero from "./components/Hero";
@@ -25,6 +26,7 @@ export default function App() {
         <ContactSection />
       </main>
       <Footer />
+      <Analytics />
     </div>
   );
 }

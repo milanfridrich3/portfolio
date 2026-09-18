@@ -42,7 +42,7 @@ Petali is a personal project that pairs computer monitoring with a visual, livin
 
 Project Pilot is a more ambitious attempt: a full web platform for organizing projects and coordinating the people working on them. Building it means working across the whole stack — frontend, backend, APIs, a database, authentication — plus email handling, user verification, permissions, and deployment. It's still evolving, with new features and fixes being added along the way.
 
-**[→ Visit Project Pilot](https://welcomeaboard.netlify.app)**
+**[→ Visit Project Pilot](https://project-pilot.is-local.org)**
 
 <br>
 

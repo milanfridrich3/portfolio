@@ -1,20 +1,44 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { profile } from "../data/content";
+import { useLanguage } from "../i18n/LanguageContext";
+import type { Content, Lang } from "../data/content";
 
-const links = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "AI & Tech", href: "#ai" },
-  { label: "Projects", href: "#projects" },
-  { label: "Skills", href: "#skills" },
-  { label: "Vision", href: "#vision" },
-];
+type LanguageSwitcherProps = {
+  lang: Lang;
+  setLang: (lang: Lang) => void;
+  t: Content;
+  className?: string;
+};
+
+function LanguageSwitcher({ lang, setLang, t, className = "" }: LanguageSwitcherProps) {
+  return (
+    <div
+      role="group"
+      aria-label={t.nav.languageSwitcherAria}
+      className={`inline-flex items-center whitespace-nowrap rounded-full border border-line-bright px-1 py-1 text-[0.82rem] text-ink-soft ${className}`}
+    >
+      {(["en", "cs"] as const).map((code) => (
+        <button
+          key={code}
+          type="button"
+          onClick={() => setLang(code)}
+          aria-pressed={lang === code}
+          className={`rounded-full px-2 py-1 transition-colors ${
+            lang === code ? "bg-ink text-void" : "text-ink-soft hover:text-ink"
+          }`}
+        >
+          {code.toUpperCase()}
+        </button>
+      ))}
+    </div>
+  );
+}
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const prefersReducedMotion = useReducedMotion();
+  const { lang, setLang, t } = useLanguage();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -60,13 +84,13 @@ export default function Nav() {
               handleClick("#home");
             }}
             className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full border border-line-bright"
-            aria-label="Milan Fridrich — home"
+            aria-label={t.nav.homeAria}
           >
             <img src="/icon-192.png" alt="" className="h-full w-full object-cover" />
           </a>
 
-          <div className="hidden md:flex items-center gap-7">
-            {links.map((l) => (
+          <div className="hidden md:flex items-center gap-3">
+            {t.nav.links.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
@@ -74,7 +98,7 @@ export default function Nav() {
                   e.preventDefault();
                   handleClick(l.href);
                 }}
-                className="group relative text-[0.86rem] text-ink-soft transition-colors hover:text-ink"
+                className="group relative whitespace-nowrap text-[0.86rem] text-ink-soft transition-colors hover:text-ink"
               >
                 {l.label}
                 <span className="absolute -bottom-1 left-0 h-px w-0 bg-blue-glow transition-all duration-300 ease-out group-hover:w-full" />
@@ -83,20 +107,22 @@ export default function Nav() {
           </div>
 
           <div className="flex items-center gap-2">
+            <LanguageSwitcher lang={lang} setLang={setLang} t={t} className="hidden md:flex" />
+
             <motion.a
               whileHover={prefersReducedMotion ? undefined : { scale: 1.04 }}
               whileTap={prefersReducedMotion ? undefined : { scale: 0.97 }}
               transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
               href="/milan-fridrich-portfolio.pdf"
               download
-              className="hidden md:inline-flex items-center gap-1.5 rounded-full border border-line-bright px-4 py-2 text-[0.82rem] text-ink-soft transition-colors hover:text-ink hover:border-line-bright/80"
+              className="hidden md:inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-line-bright px-4 py-2 text-[0.82rem] text-ink-soft transition-colors hover:text-ink hover:border-line-bright/80"
             >
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M12 3v12" />
                 <path d="M7 10l5 5 5-5" />
                 <path d="M5 21h14" />
               </svg>
-              PDF
+              {t.nav.pdf}
             </motion.a>
 
             <motion.a
@@ -108,15 +134,15 @@ export default function Nav() {
                 e.preventDefault();
                 handleClick("#contact");
               }}
-              className="hidden md:inline-flex items-center gap-1.5 rounded-full bg-ink px-4 py-2 text-[0.82rem] font-medium text-void"
+              className="hidden md:inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-ink px-4 py-2 text-[0.82rem] font-medium text-void"
             >
-              Say hi
+              {t.nav.sayHi}
             </motion.a>
 
             <button
               onClick={() => setOpen((v) => !v)}
               className="flex md:hidden h-9 w-9 items-center justify-center rounded-full border border-line-bright text-ink"
-              aria-label="Toggle menu"
+              aria-label={t.nav.toggleMenu}
               aria-expanded={open}
             >
               <div className="relative h-3 w-4">
@@ -145,7 +171,7 @@ export default function Nav() {
               className="md:hidden overflow-hidden"
             >
               <div className="flex flex-col gap-1 px-4 pb-4 pt-1">
-                {links.map((l) => (
+                {t.nav.links.map((l) => (
                   <a
                     key={l.href}
                     href={l.href}
@@ -166,7 +192,7 @@ export default function Nav() {
                   }}
                   className="mt-1 rounded-lg bg-ink px-2 py-2.5 text-center text-sm font-medium text-void"
                 >
-                  Say hi
+                  {t.nav.sayHi}
                 </a>
                 <a
                   href="/milan-fridrich-portfolio.pdf"
@@ -178,15 +204,16 @@ export default function Nav() {
                     <path d="M7 10l5 5 5-5" />
                     <path d="M5 21h14" />
                   </svg>
-                  Download PDF
+                  {t.nav.downloadPdf}
                 </a>
+                <LanguageSwitcher lang={lang} setLang={setLang} t={t} className="mt-1 self-center" />
                 <a
-                  href={profile.github}
+                  href={t.profile.github}
                   target="_blank"
                   rel="noreferrer"
                   className="px-2 py-2 text-xs text-ink-faint"
                 >
-                  GitHub ↗
+                  {t.nav.github} ↗
                 </a>
               </div>
             </motion.div>
